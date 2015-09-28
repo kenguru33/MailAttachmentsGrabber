@@ -95,9 +95,8 @@ namespace MailAttachmentsGrabber
 
             foreach (Item item in findResults.Items)
             {
-                this.log("<===============================================>");
                 if (item.HasAttachments)
-                {
+                {                    
                     EmailMessage message = EmailMessage.Bind(this.service, item.Id, new PropertySet(BasePropertySet.IdOnly, ItemSchema.Attachments));
                     this.log(message.Attachments.Count() + " attachements found in email with ID=" + item.Id);
                     message.Load();
@@ -105,6 +104,7 @@ namespace MailAttachmentsGrabber
                     Boolean filesFound = false;
                     foreach (FileAttachment fileAttachment in message.Attachments)
                     {
+                        this.log("- - - - - - - - - - - - - Attachment - - - - - - - - - - - - - -");
                         fileAttachment.Load();
                         if (fileAttachment.Name.StartsWith(attachementNamePrefix))
                         {
@@ -122,6 +122,7 @@ namespace MailAttachmentsGrabber
                                 temppath = System.IO.Path.GetFileNameWithoutExtension(path) + "_" + filecount.ToString() + System.IO.Path.GetExtension(path);
                             }
                             path = temppath;
+                            
                             fileAttachment.Load(path);
                             this.log("Exported attachent to: " + path);
                         }
@@ -130,7 +131,8 @@ namespace MailAttachmentsGrabber
                     {
                         this.log("No attachment files found!");
                     }
-                }          
+                    this.log("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+                }
             }
         }
 
