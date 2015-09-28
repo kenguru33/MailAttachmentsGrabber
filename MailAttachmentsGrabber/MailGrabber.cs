@@ -130,9 +130,7 @@ namespace MailAttachmentsGrabber
                     {
                         this.log("No attachment files found!");
                     }
-
-                }
-                
+                }          
             }
         }
 
